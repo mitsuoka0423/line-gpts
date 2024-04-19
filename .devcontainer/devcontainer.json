@@ -1,9 +1,7 @@
 {
-	"name": "Deno Dev Container",
-	// "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
-	"dockerFile": "Dockerfile",
+	"name": "LINE GPTs Dev Container",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
 	"features": {
-		"ghcr.io/devcontainers-contrib/features/supabase-cli:1": {},
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
 	},
 	"customizations": {
@@ -13,21 +11,10 @@
 				"eamodio.gitlens",
 				"donjayamanne.githistory",
 				"esbenp.prettier-vscode",
-				"denoland.vscode-deno",
 				"oderwat.indent-rainbow",
 				"yoshi389111.visible-whitespace"
 			],
-			"settings": {
-					"deno.enablePaths": [
-						"supabase/functions"
-					],
-					"deno.lint": true,
-					"deno.unstable": true,
-					"[typescript]": {
-						"editor.defaultFormatter": "denoland.vscode-deno"
-					}
-			}
 		}
 	},
-	"postCreateCommand": "curl -fsSL https://deno.land/install.sh | sh"
+	"postCreateCommand": "npm install -g wrangler"
 }
