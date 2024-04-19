@@ -1,9 +1,6 @@
 {
 	"name": "LINE GPTs Dev Container",
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
-	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
-	},
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -12,8 +9,10 @@
 				"donjayamanne.githistory",
 				"esbenp.prettier-vscode",
 				"oderwat.indent-rainbow",
-				"yoshi389111.visible-whitespace"
-			],
+				"yoshi389111.visible-whitespace",
+				"tamasfe.even-better-toml",
+				"googlecloudtools.cloudcode"
+			]
 		}
 	},
 	"postCreateCommand": "npm install -g wrangler"
