@@ -11,7 +11,8 @@
 				"oderwat.indent-rainbow",
 				"yoshi389111.visible-whitespace",
 				"tamasfe.even-better-toml",
-				"googlecloudtools.cloudcode"
+				"googlecloudtools.cloudcode",
+				"adpyke.vscode-sql-formatter"
 			]
 		}
 	},
