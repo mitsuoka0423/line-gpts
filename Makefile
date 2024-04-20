@@ -1,20 +1,17 @@
 local:
-	wrangler dev --persist-to=./persist/line-gpts
+	wrangler dev
 
 remote:
-	make deploy
-
-remote-init:
-	make migrate-remote
-	make deploy
-
-deploy:
-	npm run deploy
+	wrangler deploy
 
 migrate:
-	wrangler d1 execute line-gpts-db --local --file=./migration/conversations.sql
-	wrangler d1 execute line-gpts-db --local --file=./migration/users.sql
+	wrangler d1 execute line-gpts-db --local --file="./migration/users.sql"
 
 migrate-remote:
-	wrangler d1 execute line-gpts-db --remote --file=./migration/conversations.sql
-	wrangler d1 execute line-gpts-db --remote --file=./migration/users.sql
+	wrangler d1 execute line-gpts-db --remote --file="./migration/users.sql"
+
+query:
+	wrangler d1 execute line-gpts-db --local --command "SELECT * FROM users"
+
+query-remote:
+	wrangler d1 execute line-gpts-db --remote --command "SELECT * FROM users"

@@ -1,17 +1,12 @@
-import { ClientConfig, Message, WebhookRequestBody, messagingApi } from '@line/bot-sdk';
+import { Message, WebhookRequestBody } from '@line/bot-sdk';
 import { Context } from 'hono';
-
-import { handle } from '../handlers/messageEvent';
+import { handle as handleMessageEvent } from '../handlers/messageEvent';
+import { handle as handleFollowEvent} from "../handlers/followEvent";
 import { logger } from '../util/logger';
+import { replyMessage } from '../apis/line';
 
 export const post = async (c: Context) => {
 	logger.info('[START]', 'webhook', 'post');
-
-	const lineChannelAccessToken = c.env?.LINE_CHANNEL_ACCESS_TOKEN as string;
-	const clientConfig: ClientConfig = {
-		channelAccessToken: lineChannelAccessToken,
-	};
-	const client = new messagingApi.MessagingApiClient(clientConfig);
 
 	try {
 		const webhookRequestBody: WebhookRequestBody = await c.req.json();
@@ -20,11 +15,13 @@ export const post = async (c: Context) => {
 			let messages: Message[];
 
 			if (event.type === 'message') {
-				messages = await handle(event.message);
-				await client.replyMessage({
+				messages = await handleMessageEvent(event.message);
+				await replyMessage({
 					replyToken: event.replyToken,
 					messages,
 				});
+			} else if (event.type === 'follow') {
+				await handleFollowEvent(event);
 			}
 		}
 

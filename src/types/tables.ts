@@ -6,5 +6,9 @@ export type Conversation = {
 
 export type User = {
 	id: number;
+	name: string;
 	line_id: string;
+	assistant?: string;
+	created_at: string;
+	updated_at: string;
 };
