@@ -4,7 +4,6 @@ import { logger } from '../util/logger';
 import { keyword as keywordChooseGpts, execute as executeChooseGpts } from '../usecases/chooseGpts';
 import { keyword as keywordRegisterGpts, execute as executeRegisterGpts } from '../usecases/registerGpts';
 import { keyword as keywordRemoveGpts, execute as executeRemoveGpts } from '../usecases/removeGpts';
-import { keyword } from '../usecases/registerGpts';
 
 export const handle = async (eventMessage: EventMessage): Promise<Message[]> => {
 	logger.info('[START]', 'messageEvent', 'handle');
