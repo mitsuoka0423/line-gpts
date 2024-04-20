@@ -1,4 +1,4 @@
-import { EventMessage, ImageEventMessage, Message, TextEventMessage } from '@line/bot-sdk';
+import { ImageEventMessage, Message, TextEventMessage } from '@line/bot-sdk';
 import { execute } from '../usecasexs/echo';
 import { logger } from '../util/logger';
 
