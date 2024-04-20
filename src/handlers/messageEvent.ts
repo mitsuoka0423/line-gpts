@@ -1,8 +1,8 @@
-import { EventMessage, Message } from '@line/bot-sdk';
+import { EventMessage, ImageEventMessage, Message, TextEventMessage } from '@line/bot-sdk';
 import { execute } from '../usecasexs/echo';
 import { logger } from '../util/logger';
 
-export const handle = async (message: EventMessage): Promise<Message[]> => {
+export const handle = async (message: TextEventMessage | ImageEventMessage): Promise<Message[]> => {
 	logger.info('[START]', 'messageEvent', 'handle');
 	logger.debug({ message });
 
