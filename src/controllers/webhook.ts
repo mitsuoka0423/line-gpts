@@ -1,7 +1,7 @@
 import { ClientConfig, Message, WebhookRequestBody, messagingApi } from '@line/bot-sdk';
 import { Context } from 'hono';
 
-import { handle } from '../handlers/messageEventHandler';
+import { handle } from '../handlers/messageEvent';
 import { logger } from '../util/logger';
 
 export const post = async (c: Context) => {
@@ -12,8 +12,6 @@ export const post = async (c: Context) => {
 		channelAccessToken: lineChannelAccessToken,
 	};
 	const client = new messagingApi.MessagingApiClient(clientConfig);
-
-	logger.debug({ lineChannelAccessToken: lineChannelAccessToken.substring(0, 5) + '*******' });
 
 	try {
 		const webhookRequestBody: WebhookRequestBody = await c.req.json();
