@@ -1,5 +1,5 @@
 import { EventMessage, Message } from '@line/bot-sdk';
-import { execute } from '../usecasexs/echo';
+import { execute } from '../usecases/echo';
 import { logger } from '../util/logger';
 
 export const handle = async (eventMessage: EventMessage): Promise<Message[]> => {
