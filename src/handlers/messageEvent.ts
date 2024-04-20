@@ -3,7 +3,7 @@ import { execute } from '../usecasexs/echo';
 import { logger } from '../util/logger';
 
 export const handle = async (message: EventMessage): Promise<Message[]> => {
-	logger.info('[START]', 'messageEventHandler', 'handle');
+	logger.info('[START]', 'messageEvent', 'handle');
 	logger.debug({ message });
 
 	let messages: Message[] = [];
@@ -20,6 +20,6 @@ export const handle = async (message: EventMessage): Promise<Message[]> => {
 	}
 
 	logger.debug({ message });
-	logger.info('[END]', 'messageEventHandler', 'handle');
+	logger.info('[END]', 'messageEvent', 'handle');
 	return messages;
 };
