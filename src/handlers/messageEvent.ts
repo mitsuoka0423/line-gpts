@@ -1,6 +1,10 @@
 import { EventMessage, Message } from '@line/bot-sdk';
-import { execute } from '../usecases/echo';
+import { execute as executeEcho } from '../usecases/echo';
 import { logger } from '../util/logger';
+import { keyword as keywordChooseGpts, execute as executeChooseGpts } from '../usecases/chooseGpts';
+import { keyword as keywordRegisterGpts, execute as executeRegisterGpts } from '../usecases/registerGpts';
+import { keyword as keywordRemoveGpts, execute as executeRemoveGpts } from '../usecases/removeGpts';
+import { keyword } from '../usecases/registerGpts';
 
 export const handle = async (eventMessage: EventMessage): Promise<Message[]> => {
 	logger.info('[START]', 'messageEvent', 'handle');
@@ -9,7 +13,20 @@ export const handle = async (eventMessage: EventMessage): Promise<Message[]> => 
 	let messages: Message[] = [];
 
 	if (eventMessage.type === 'text') {
-		messages = await execute(eventMessage);
+		switch (eventMessage.text) {
+			case keywordChooseGpts:
+				messages = await executeChooseGpts(eventMessage);
+				break;
+			case keywordRegisterGpts:
+				messages = await executeRegisterGpts(eventMessage);
+				break;
+			case keywordRemoveGpts:
+				messages = await executeRemoveGpts(eventMessage);
+				break;
+			default:
+				messages = await executeEcho(eventMessage);
+				break;
+		}
 	} else {
 		messages = [
 			{
