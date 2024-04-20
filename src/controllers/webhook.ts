@@ -15,7 +15,7 @@ export const post = async (c: Context) => {
 			let messages: Message[];
 
 			if (event.type === 'message') {
-				messages = await handleMessageEvent(event.message);
+				messages = await handleMessageEvent(event.message, event);
 				await replyMessage({
 					replyToken: event.replyToken,
 					messages,

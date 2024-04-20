@@ -4,6 +4,7 @@ import { getDb } from './db';
 
 export const list = async (userId: number, limit: number = 5): Promise<{ assistants: Assistant[] }> => {
 	logger.info('[START]', 'user', 'list');
+	logger.debug({ userId, limit });
 
 	const db = getDb();
 	const result = await db

@@ -1,6 +1,5 @@
-import { FollowEvent, Message } from '@line/bot-sdk';
+import { FollowEvent } from '@line/bot-sdk';
 import { logger } from '../util/logger';
-import { getProfile } from '../apis/line';
 import { execute } from '../usecases/registerUser';
 
 export const handle = async (followEvent: FollowEvent) => {

@@ -5,6 +5,7 @@ import { getDb } from './db';
 
 export const findByLineId = async (lineId: string): Promise<{ user: UserEntity }> => {
 	logger.info('[START]', 'user', 'findByLineId');
+	logger.debug({ lineId });
 
 	const db = getDb();
 	const user = await db
@@ -26,6 +27,7 @@ export const findByLineId = async (lineId: string): Promise<{ user: UserEntity }
 		throw new Error('ユーザーが見つかりません');
 	}
 
+	logger.debug({ user });
 	logger.info('[END]', 'user', 'findByLineId');
 
 	return { user };

@@ -5,6 +5,6 @@ CREATE TABLE users (
 	name TEXT NOT NULL,
 	line_id TEXT UNIQUE NOT NULL,
 	assistant_id TEXT,
-	created_at DATETIME NOT NULL,
-	updated_at DATETIME NOT NULL
+	created_at DATETIME NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+	updated_at DATETIME NOT NULL DEFAULT (DATETIME('now', 'localtime'))
 );

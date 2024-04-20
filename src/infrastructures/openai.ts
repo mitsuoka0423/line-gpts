@@ -16,6 +16,7 @@ export const fetchAssistantsByUser = async (userDomain: User): Promise<Assistant
 
 	const assistantDomains = assistantResponses.map((assistant): Assistant => {
 		return {
+			id: assistant?.id || 'No ID',
 			name: assistant?.name || 'No name',
 			instructions: assistant?.instructions || 'No instructions',
 			tools: [], // TODO: 実装
