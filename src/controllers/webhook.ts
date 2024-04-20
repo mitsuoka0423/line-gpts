@@ -3,7 +3,7 @@ import { Context } from 'hono';
 import { handle as handleMessageEvent } from '../handlers/messageEvent';
 import { handle as handleFollowEvent} from "../handlers/followEvent";
 import { logger } from '../util/logger';
-import { replyMessage } from '../apis/line';
+import { replyMessage } from '../infrastructures/apis/line';
 
 export const post = async (c: Context) => {
 	logger.info('[START]', 'webhook', 'post');

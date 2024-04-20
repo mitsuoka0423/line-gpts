@@ -36,6 +36,18 @@ make deploy
 
 ```mermaid
 graph LR
-	controller --> handlers --> usecases --> apis --> API
-	usecases --> repositories --> DB
+	controller -->|event| handlers
+	handlers -->|parameters| usecases
+	usecases --> |domains| infrastructures
+	infrastructures -->|parameters| apis
+	apis --> API
+	infrastructures -->|parameters| repositories
+	repositories --> DB
+	DB --> repositories
+	repositories -->|entities| infrastructures
+	API --> apis
+	apis -->|responses| infrastructures
+	infrastructures -->|domains| usecases
+	usecases -->|message| handlers
+	handlers -->|message| controller
 ```

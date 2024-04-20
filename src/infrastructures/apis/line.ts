@@ -1,6 +1,5 @@
 import { ClientConfig, Message, messagingApi } from '@line/bot-sdk';
-import { User } from '../domains/user';
-import { logger } from '../util/logger';
+import { logger } from '../../util/logger';
 
 let messagingApiClient: messagingApi.MessagingApiClient | null = null;
 
@@ -31,7 +30,7 @@ export const replyMessage = async ({ replyToken, messages }: { replyToken: strin
 	logger.info('[END]', 'line', 'replyMessage');
 };
 
-export const getProfile = async ({ userId }: { userId: string }): Promise<User> => {
+export const getProfile = async ({ userId }: { userId: string }): Promise<messagingApi.UserProfileResponse> => {
 	logger.info('[START]', 'line', 'getProfile');
 	logger.debug({ userId });
 
@@ -40,14 +39,9 @@ export const getProfile = async ({ userId }: { userId: string }): Promise<User> 
 	}
 
 	const profile = await messagingApiClient.getProfile(userId);
+	logger.debug({ profile });
 
-	const user = {
-		name: profile.displayName,
-		lineId: profile.userId,
-	};
-
-	logger.debug({ user });
 	logger.info('[END]', 'line', 'getProfile');
 
-	return user;
+	return profile;
 };

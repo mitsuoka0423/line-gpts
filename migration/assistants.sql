@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS assistants;
+
+CREATE TABLE assistants (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_id TEXT NOT NULL,
+	assistant_id TEXT NOT NULL,
+	created_at DATETIME NOT NULL,
+	updated_at DATETIME NOT NULL
+);

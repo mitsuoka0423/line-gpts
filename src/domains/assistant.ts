@@ -1,3 +1,6 @@
 export interface Assistant {
-	id: number;
+	name: string;
+	instructions: string;
+	tools: [];
+	model: string;
 }

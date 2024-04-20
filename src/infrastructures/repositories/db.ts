@@ -1,5 +1,5 @@
 import { D1Database } from '@cloudflare/workers-types';
-import { logger } from '../util/logger';
+import { logger } from '../../util/logger';
 
 let db: D1Database | null = null;
 
