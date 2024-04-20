@@ -1,15 +1,15 @@
-import { ImageEventMessage, Message, TextEventMessage } from '@line/bot-sdk';
+import { EventMessage, Message } from '@line/bot-sdk';
 import { execute } from '../usecasexs/echo';
 import { logger } from '../util/logger';
 
-export const handle = async (message: TextEventMessage | ImageEventMessage): Promise<Message[]> => {
+export const handle = async (eventMessage: EventMessage): Promise<Message[]> => {
 	logger.info('[START]', 'messageEvent', 'handle');
-	logger.debug({ message });
+	logger.debug({ eventMessage });
 
 	let messages: Message[] = [];
 
-	if (message.type === 'text') {
-		messages = await execute(message);
+	if (eventMessage.type === 'text') {
+		messages = await execute(eventMessage);
 	} else {
 		messages = [
 			{
@@ -19,7 +19,7 @@ export const handle = async (message: TextEventMessage | ImageEventMessage): Pro
 		];
 	}
 
-	logger.debug({ message });
+	logger.debug({ messages });
 	logger.info('[END]', 'messageEvent', 'handle');
 	return messages;
 };
