@@ -1,5 +1,4 @@
 import { getProfile } from "../apis/line";
-import { getDb } from "../repositories/db";
 import { save } from "../repositories/user";
 import { logger } from "../util/logger";
 
