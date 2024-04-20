@@ -12,7 +12,8 @@
 				"yoshi389111.visible-whitespace",
 				"tamasfe.even-better-toml",
 				"googlecloudtools.cloudcode",
-				"adpyke.vscode-sql-formatter"
+				"adpyke.vscode-sql-formatter",
+				"EditorConfig.EditorConfig"
 			]
 		}
 	},
