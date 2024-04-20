@@ -5,7 +5,7 @@ import { filterAssistantsById } from './apis/openai';
 import { list } from './repositories/assistant';
 import { findByLineId } from './repositories/user';
 
-export const fetchAssistantsByUser = async (userDomain: User): Promise<Assistant[]> => {
+export const fetchByUser = async (userDomain: User): Promise<Assistant[]> => {
 	logger.info('[START]', 'openai', 'fetchAssistantsByUser');
 	logger.debug({ userDomain });
 

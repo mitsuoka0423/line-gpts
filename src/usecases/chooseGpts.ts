@@ -1,5 +1,5 @@
 import { Message, TemplateMessage } from '@line/bot-sdk';
-import { fetchAssistantsByUser } from '../infrastructures/openai';
+import { fetchByUser } from '../infrastructures/assistant';
 import { fetchByLineId } from '../infrastructures/user';
 import { logger } from '../util/logger';
 
@@ -11,7 +11,7 @@ export const execute = async (lineId: string): Promise<Message[]> => {
 
 	const user = await fetchByLineId(lineId);
 
-	const assistants = await fetchAssistantsByUser(user);
+	const assistants = await fetchByUser(user);
 
 	const messages: TemplateMessage[] = [
 		{
