@@ -4,4 +4,5 @@ export interface Assistant {
 	instructions: string;
 	tools: [];
 	model: string;
+	threadId: string;
 }

@@ -1,9 +1,9 @@
 import { EventMessage, Message, MessageEvent } from '@line/bot-sdk';
-import { execute as executeEcho } from '../usecases/echo';
 import { logger } from '../util/logger';
 import { keyword as keywordChooseGpts, execute as executeChooseGpts } from '../usecases/chooseGpts';
 import { keyword as keywordRegisterGpts, execute as executeRegisterGpts } from '../usecases/registerGpts';
 import { keyword as keywordRemoveGpts, execute as executeRemoveGpts } from '../usecases/removeGpts';
+import { execute as executeTalkGpts } from '../usecases/talkGPTs';
 
 // TODO: MessageEvent のみに変更
 export const handle = async (eventMessage: EventMessage, messageEvent: MessageEvent): Promise<Message[]> => {
@@ -30,7 +30,7 @@ export const handle = async (eventMessage: EventMessage, messageEvent: MessageEv
 				messages = await executeRemoveGpts(eventMessage);
 				break;
 			default:
-				messages = await executeEcho(eventMessage);
+				messages = await executeTalkGpts(eventMessage.text, messageEvent.source.userId);
 				break;
 		}
 	} else {

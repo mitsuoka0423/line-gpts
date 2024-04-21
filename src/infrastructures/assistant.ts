@@ -21,6 +21,7 @@ export const fetchByUser = async (userDomain: User): Promise<Assistant[]> => {
 			instructions: assistant?.instructions || 'No instructions',
 			tools: [], // TODO: 実装
 			model: assistant?.model || 'No model',
+			threadId: '', // TODO 実装
 		};
 	});
 
@@ -64,6 +65,11 @@ export const create = async (userDomain: User): Promise<Assistant> => {
 	logger.info('[END]', 'assistant', 'create');
 
 	return assistnt;
+};
+
+export const createThread = async () => {
+	logger.info('[START]', 'assistant', 'createThread');
+	logger.info('[END]', 'assistant', 'createThread');
 };
 
 export const save = async ({ userDomain, assistantDomain }: { userDomain: User, assistantDomain: Assistant }) => {

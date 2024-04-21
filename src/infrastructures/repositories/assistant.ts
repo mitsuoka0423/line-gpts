@@ -10,7 +10,7 @@ export const list = async (userId: number, limit: number = 5): Promise<{ assista
 	const result = await db
 		.prepare(
 			`
-			SELECT id, user_id, assistant_id, created_at, updated_at
+			SELECT id, user_id, assistant_id, thread_id, created_at, updated_at
 			FROM assistants
 			WHERE user_id = ?
 			ORDER BY id DESC

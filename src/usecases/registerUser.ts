@@ -21,6 +21,7 @@ export const execute = async ({ lineId }: { lineId: string }) => {
 	};
 
 	const assistant = await create(user);
+	
 	await saveAssistants({ userDomain: user, assistantDomain: assistant });
 
 	logger.info('[END]', 'registerUser', 'execute');
