@@ -1,9 +1,9 @@
 import { Message, WebhookRequestBody } from '@line/bot-sdk';
 import { Context } from 'hono';
 import { handle as handleMessageEvent } from '../handlers/messageEvent';
-import { handle as handleFollowEvent} from "../handlers/followEvent";
+import { handle as handleFollowEvent } from '../handlers/followEvent';
 import { logger } from '../util/logger';
-import { replyMessage } from '../infrastructures/apis/line';
+import { replyMessage, showLoader } from '../infrastructures/apis/line';
 
 export const post = async (c: Context) => {
 	logger.info('[START]', 'webhook', 'post');
@@ -12,9 +12,15 @@ export const post = async (c: Context) => {
 		const webhookRequestBody: WebhookRequestBody = await c.req.json();
 
 		for (const event of webhookRequestBody.events) {
-			let messages: Message[];
+			logger.debug({ event });
 
+			let messages: Message[];
 			if (event.type === 'message') {
+				if (!event.source.userId) {
+					throw new Error('LINEユーザーIDを取得できませんでした。');
+				}
+
+				await showLoader(event.source.userId, 60);
 				messages = await handleMessageEvent(event.message, event);
 				await replyMessage({
 					replyToken: event.replyToken,

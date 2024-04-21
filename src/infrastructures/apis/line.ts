@@ -45,3 +45,10 @@ export const getProfile = async ({ userId }: { userId: string }): Promise<messag
 
 	return profile;
 };
+
+export const showLoader = async (lineId: string, loadingSeconds: number) => {
+	await messagingApiClient?.showLoadingAnimation({
+		chatId: lineId,
+		loadingSeconds,
+	});
+};
