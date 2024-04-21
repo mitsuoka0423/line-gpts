@@ -6,14 +6,14 @@ export const handle = async (followEvent: FollowEvent) => {
 	logger.info('[START]', 'followEventHandler', 'handle');
 	logger.debug({ followEvent });
 
-	const userId = followEvent.source.userId;
-	if (!userId) {
-		logger.error('userId の取得に失敗しました。');
+	const lineId = followEvent.source.userId;
+	if (!lineId) {
+		logger.error('lineId の取得に失敗しました。');
 		logger.error({ followEvent });
-		throw new Error('userId の取得に失敗しました。');
+		throw new Error('lineId の取得に失敗しました。');
 	}
 
-	await execute({ userId });
+	await execute({ lineId });
 
 	logger.info('[END]', 'followEventHandler', 'handle');
 };

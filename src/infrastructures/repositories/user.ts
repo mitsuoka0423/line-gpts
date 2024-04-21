@@ -54,6 +54,7 @@ export const list = async (limit: number = 5): Promise<{ users: UserDomain[] }> 
 
 	const userDomains = userEntities.map((userEntity): UserDomain => {
 		return {
+			id: userEntity.id,
 			name: userEntity.name,
 			lineId: userEntity.line_id,
 		};

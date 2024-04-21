@@ -28,22 +28,28 @@ export const list = async (userId: number, limit: number = 5): Promise<{ assista
 	return { assistants };
 };
 
-export const save = async ({ name, lineId, now = new Date() }: { name: string; lineId: string; now: Date }) => {
-	logger.info('[START]', 'user', 'createAndUpdate');
-	logger.debug({ name, lineId, now });
+export const save = async ({
+	userId,
+	assistantId,
+	now = new Date(),
+}: {
+	userId: number,
+	assistantId: string;
+	now?: Date;
+}) => {
+	logger.info('[START]', 'assistant', 'createAndUpdate');
+	logger.debug({ userId, assistantId, now });
 
 	const db = getDb();
 	await db
 		.prepare(
 			`
-		INSERT INTO users (name, line_id, created_at, updated_at)
-		VALUES (?, ?, ?, ?)
-		ON CONFLICT (line_id)
-		DO UPDATE SET name = ?, updated_at = ?
-	`
+			INSERT INTO assistants (user_id, assistant_id)
+			VALUES (?, ?)
+			`
 		)
-		.bind(name, lineId, now.toISOString(), now.toISOString(), name, now.toISOString())
+		.bind(userId, assistantId)
 		.run();
 
-	logger.info('[END]', 'user', 'createAndUpdate');
+	logger.info('[END]', 'assistant', 'createAndUpdate');
 };

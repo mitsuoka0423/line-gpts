@@ -1,6 +1,6 @@
 export type Assistant = {
 	id: number;
-	line_id: string;
+	user_id: number;
 	assistant_id: string;
 	created_at: string;
 	updated_at: string;

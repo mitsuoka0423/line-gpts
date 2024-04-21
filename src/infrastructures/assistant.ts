@@ -1,9 +1,9 @@
+import { createAssistant, filterAssistantsById } from './apis/openai';
 import { Assistant } from '../domains/assistant';
 import { User } from '../domains/user';
-import { logger } from '../util/logger';
-import { filterAssistantsById } from './apis/openai';
-import { list } from './repositories/assistant';
+import { list, save as saveAssistantsTable } from './repositories/assistant';
 import { findByLineId } from './repositories/user';
+import { logger } from '../util/logger';
 
 export const fetchByUser = async (userDomain: User): Promise<Assistant[]> => {
 	logger.info('[START]', 'openai', 'fetchAssistantsByUser');
@@ -28,4 +28,49 @@ export const fetchByUser = async (userDomain: User): Promise<Assistant[]> => {
 	logger.info('[END]', 'openai', 'fetchAssistantsByUser');
 
 	return assistantDomains;
+};
+
+export const create = async (userDomain: User): Promise<Assistant> => {
+	logger.info('[START]', 'assistant', 'create');
+	logger.debug({ userDomain });
+
+	const name = `${userDomain.name}さんの秘書`;
+	const instructions = `
+		## 役割
+		- ${userDomain.name}の秘書として振る舞ってください
+		`;
+	// @ts-ignore
+	const tools = []; // TODO: 実装
+	const model = 'gpt-4-turbo';
+
+	const assistantResponse = await createAssistant({
+		name,
+		instructions,
+		// @ts-ignore
+		tools,
+		model,
+	});
+
+	const assistnt: Assistant = {
+		id: assistantResponse.id,
+		name,
+		instructions,
+		// @ts-ignore
+		tools, // TODO 実装
+		model,
+	};
+
+	logger.debug({ assistnt });
+	logger.info('[END]', 'assistant', 'create');
+
+	return assistnt;
+};
+
+export const save = async ({ userDomain, assistantDomain }: { userDomain: User, assistantDomain: Assistant }) => {
+	logger.info('[START]', 'assistant', 'save');
+	logger.debug({ userDomain, assistantDomain });
+
+	await saveAssistantsTable({ userId: userDomain.id, assistantId: assistantDomain.id });
+
+	logger.info('[END]', 'assistant', 'save');
 };
