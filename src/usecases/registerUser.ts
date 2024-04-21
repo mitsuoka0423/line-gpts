@@ -1,5 +1,5 @@
 import { User } from '../domains/user';
-import { create, createThread } from '../infrastructures/assistant';
+import { create } from '../infrastructures/assistant';
 import { save as saveAssistants } from '../infrastructures/assistant';
 import { fetchProfile } from '../infrastructures/line';
 import { findByLineId, save as saveUserTable } from '../infrastructures/repositories/user';
