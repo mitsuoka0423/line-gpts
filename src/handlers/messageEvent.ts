@@ -5,6 +5,7 @@ import { keyword as keywordChooseGpts, execute as executeChooseGpts } from '../u
 import { keyword as keywordRegisterGpts, execute as executeRegisterGpts } from '../usecases/registerGpts';
 import { keyword as keywordRemoveGpts, execute as executeRemoveGpts } from '../usecases/removeGpts';
 
+// TODO: MessageEvent のみに変更
 export const handle = async (eventMessage: EventMessage, messageEvent: MessageEvent): Promise<Message[]> => {
 	logger.info('[START]', 'messageEvent', 'handle');
 	logger.debug({ eventMessage, messageEvent });
