@@ -1,4 +1,4 @@
-import { createAssistant, filterAssistantsById } from './apis/openai';
+import { createAssistant, createThread as createThreadViaApi, filterAssistantsById } from './apis/openai';
 import { Assistant } from '../domains/assistant';
 import { User } from '../domains/user';
 import { list, save as saveAssistantsTable } from './repositories/assistant';
@@ -51,6 +51,7 @@ export const create = async (userDomain: User): Promise<Assistant> => {
 		tools,
 		model,
 	});
+	const threadResponse = await createThreadViaApi();
 
 	const assistnt: Assistant = {
 		id: assistantResponse.id,
@@ -59,6 +60,7 @@ export const create = async (userDomain: User): Promise<Assistant> => {
 		// @ts-ignore
 		tools, // TODO 実装
 		model,
+		threadId: threadResponse?.id || 'No thread', // NOTE: ドメイン分けたほうが良いかも
 	};
 
 	logger.debug({ assistnt });
@@ -69,14 +71,16 @@ export const create = async (userDomain: User): Promise<Assistant> => {
 
 export const createThread = async () => {
 	logger.info('[START]', 'assistant', 'createThread');
+
+
 	logger.info('[END]', 'assistant', 'createThread');
 };
 
-export const save = async ({ userDomain, assistantDomain }: { userDomain: User, assistantDomain: Assistant }) => {
+export const save = async ({ userDomain, assistantDomain }: { userDomain: User; assistantDomain: Assistant }) => {
 	logger.info('[START]', 'assistant', 'save');
 	logger.debug({ userDomain, assistantDomain });
 
-	await saveAssistantsTable({ userId: userDomain.id, assistantId: assistantDomain.id });
+	await saveAssistantsTable({ userId: userDomain.id, assistantId: assistantDomain.id, threadId: assistantDomain.threadId });
 
 	logger.info('[END]', 'assistant', 'save');
 };

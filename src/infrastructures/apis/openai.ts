@@ -37,10 +37,21 @@ export const createAssistant = async ({
 		throw new Error('Assistant の生成に失敗しました。');
 	}
 
-	logger.debug({assistant});
+	logger.debug({ assistant });
 	logger.info('[END]', 'openai', 'createAssistant');
 
 	return assistant;
+};
+
+export const createThread = async () => {
+	logger.info('[START]', 'openai', 'createThread');
+
+	const thread = await openai?.beta.threads.create();
+
+	logger.debug({ thread });
+	logger.info('[END]', 'openai', 'createThread');
+
+	return thread;
 };
 
 export const filterAssistantsById = async ({ assistantIds }: { assistantIds: string[] }) => {

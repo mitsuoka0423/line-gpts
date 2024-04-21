@@ -1,5 +1,5 @@
 import { User } from '../domains/user';
-import { create } from '../infrastructures/assistant';
+import { create, createThread } from '../infrastructures/assistant';
 import { save as saveAssistants } from '../infrastructures/assistant';
 import { fetchProfile } from '../infrastructures/line';
 import { findByLineId, save as saveUserTable } from '../infrastructures/repositories/user';
@@ -21,7 +21,7 @@ export const execute = async ({ lineId }: { lineId: string }) => {
 	};
 
 	const assistant = await create(user);
-	
+
 	await saveAssistants({ userDomain: user, assistantDomain: assistant });
 
 	logger.info('[END]', 'registerUser', 'execute');

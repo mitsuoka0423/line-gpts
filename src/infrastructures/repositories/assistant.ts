@@ -31,24 +31,26 @@ export const list = async (userId: number, limit: number = 5): Promise<{ assista
 export const save = async ({
 	userId,
 	assistantId,
+	threadId,
 	now = new Date(),
 }: {
 	userId: number,
 	assistantId: string;
+	threadId: string;
 	now?: Date;
 }) => {
 	logger.info('[START]', 'assistant', 'createAndUpdate');
-	logger.debug({ userId, assistantId, now });
+	logger.debug({ userId, assistantId, threadId, now });
 
 	const db = getDb();
 	await db
 		.prepare(
 			`
-			INSERT INTO assistants (user_id, assistant_id)
-			VALUES (?, ?)
+			INSERT INTO assistants (user_id, assistant_id, thread_id)
+			VALUES (?, ?, ?)
 			`
 		)
-		.bind(userId, assistantId)
+		.bind(userId, assistantId, threadId)
 		.run();
 
 	logger.info('[END]', 'assistant', 'createAndUpdate');
