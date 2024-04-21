@@ -28,13 +28,42 @@ export const list = async (userId: number, limit: number = 5): Promise<{ assista
 	return { assistants };
 };
 
+export const findByUserId = async (userId: number): Promise<{ assistant: Assistant }> => {
+	logger.info('[START]', 'user', 'findByUserId');
+	logger.debug({ userId });
+
+	const db = getDb();
+	const assistant = await db
+		.prepare(
+			`
+			SELECT id, user_id, assistant_id, thread_id, created_at, updated_at
+			FROM assistants
+			WHERE user_id = ?
+			ORDER BY id DESC
+			LIMIT 1
+		`
+		)
+		.bind(userId)
+		.first<Assistant>();
+
+	if (!assistant) {
+		logger.error('アシスタントが見つかりません');
+		logger.error({ userId });
+		throw new Error('アシスタントが見つかりません');
+	}
+
+	logger.info('[END]', 'user', 'findByUserId');
+
+	return { assistant };
+};
+
 export const save = async ({
 	userId,
 	assistantId,
 	threadId,
 	now = new Date(),
 }: {
-	userId: number,
+	userId: number;
 	assistantId: string;
 	threadId: string;
 	now?: Date;

@@ -4,5 +4,5 @@ export interface Assistant {
 	instructions: string;
 	tools: [];
 	model: string;
-	threadId: string;
+	threadId: string; // TODO Thread ドメインと二重管理になってるので解消する
 }
